@@ -1,0 +1,73 @@
+=== Step 1: Copy ALGURA tables from primewear ??? furniture_db ===
+
+  Copying: carts ... OK
+  Copying: cart_items ... OK
+  Copying: categories ... OK
+  Copying: failed_jobs ... OK
+  Copying: migrations ... OK
+  Copying: orders ... OK
+  Copying: order_items ... OK
+  Copying: password_resets ... OK
+  Copying: personal_access_tokens ... OK
+  Copying: products ... OK
+  Copying: users ... OK
+
+=== Step 2: Drop ALGURA tables from primewear ===
+
+  Dropping primewear.carts ... OK
+  Dropping primewear.cart_items ... OK
+  Dropping primewear.categories ... OK
+  Dropping primewear.failed_jobs ... OK
+  Dropping primewear.migrations ... OK
+  Dropping primewear.orders ... OK
+  Dropping primewear.order_items ... OK
+  Dropping primewear.password_resets ... OK
+  Dropping primewear.personal_access_tokens ... OK
+  Dropping primewear.products ... OK
+  Dropping primewear.users ... OK
+
+=== Step 3: Restore primewear tables from primewears2.0 ===
+
+  Restoring: cart_items ... OK
+  Restoring: categories ... OK
+  Restoring: failed_jobs ... OK
+  Restoring: migrations ... OK
+  Restoring: notifications ... OK
+  Restoring: orders ... OK
+  Restoring: order_items ... OK
+  Restoring: password_resets ... OK
+  Restoring: payment_methods ... OK
+  Restoring: personal_access_tokens ... OK
+  Restoring: products ... OK
+  Restoring: users ... OK
+
+=== Verification ===
+
+furniture_db tables: 11
+  ??? carts
+  ??? cart_items
+  ??? categories
+  ??? failed_jobs
+  ??? migrations
+  ??? orders
+  ??? order_items
+  ??? password_resets
+  ??? personal_access_tokens
+  ??? products
+  ??? users
+
+primewear tables: 12
+  ??? cart_items
+  ??? categories
+  ??? failed_jobs
+  ??? migrations
+  ??? notifications
+  ??? orders
+  ??? order_items
+  ??? password_resets
+  ??? payment_methods
+  ??? personal_access_tokens
+  ??? products
+  ??? users
+
+??? Done! Both databases restored.

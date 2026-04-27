@@ -1,0 +1,216 @@
+php : PHP Warning:  Module 
+'fileinfo' already loaded in 
+Unknown on line 0
+At line:1 char:1
++ php artisan serve 2>&1 | 
+Out-File -FilePath 
+C:\Users\Public\furniture ...
++ ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (PHP War  
+  ning:  M...known on line   
+  0:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+PHP Warning:  Module 
+'mbstring' already loaded in 
+Unknown on line 0
+PHP Warning:  Module 
+'openssl' already loaded in 
+Unknown on line 0
+Starting Laravel development server: http://127.0.0.1:8000
+[Fri Mar 20 14:39:48 2026] PHP Warning:  Module 'fileinfo' already loaded in Unknown on line 0
+[Fri Mar 20 14:39:48 2026] PHP Warning:  Module 'mbstring' already loaded in Unknown on line 0
+[Fri Mar 20 14:39:48 2026] PHP Warning:  Module 'openssl' already loaded in Unknown on line 0
+[Fri Mar 20 14:39:48 2026] PHP 7.4.15 Development Server (http://127.0.0.1:8000) started
+[Fri Mar 20 14:40:32 2026] 127.0.0.1:49346 Accepted
+[Fri Mar 20 14:40:36 2026] 127.0.0.1:49346 Closing
+[Fri Mar 20 14:40:48 2026] 127.0.0.1:51397 Accepted
+[Fri Mar 20 14:40:48 2026] 127.0.0.1:51397 Closing
+[Fri Mar 20 14:41:00 2026] 127.0.0.1:61131 Accepted
+[Fri Mar 20 14:41:02 2026] 127.0.0.1:61131 Closing
+[Fri Mar 20 14:41:26 2026] 127.0.0.1:60515 Accepted
+[Fri Mar 20 14:41:28 2026] 127.0.0.1:60515 Closing
+[Fri Mar 20 14:41:44 2026] 127.0.0.1:56960 Accepted
+[Fri Mar 20 14:41:44 2026] 127.0.0.1:56960 Closing
+[Fri Mar 20 14:43:33 2026] 127.0.0.1:52426 Accepted
+[Fri Mar 20 14:43:33 2026] 127.0.0.1:52427 Accepted
+[Fri Mar 20 14:43:34 2026] 127.0.0.1:52426 Closing
+[Fri Mar 20 14:43:34 2026] 127.0.0.1:52428 Accepted
+[Fri Mar 20 14:43:35 2026] 127.0.0.1:52427 Closing
+[Fri Mar 20 14:43:35 2026] 127.0.0.1:52429 Accepted
+[Fri Mar 20 14:43:35 2026] 127.0.0.1:52428 Closing
+[Fri Mar 20 14:43:35 2026] 127.0.0.1:64956 Accepted
+[Fri Mar 20 14:43:35 2026] 127.0.0.1:52429 Closing
+[Fri Mar 20 14:43:35 2026] 127.0.0.1:52306 Accepted
+[Fri Mar 20 14:43:36 2026] 127.0.0.1:64956 Closing
+[Fri Mar 20 14:43:36 2026] 127.0.0.1:62465 Accepted
+[Fri Mar 20 14:43:36 2026] 127.0.0.1:52306 Closing
+[Fri Mar 20 14:43:36 2026] 127.0.0.1:56292 Accepted
+[Fri Mar 20 14:43:36 2026] 127.0.0.1:62465 Closing
+[Fri Mar 20 14:43:37 2026] 127.0.0.1:56292 Closing
+[Fri Mar 20 14:44:36 2026] 127.0.0.1:56927 Accepted
+[Fri Mar 20 14:44:37 2026] 127.0.0.1:56927 Closing
+[Fri Mar 20 14:44:37 2026] 127.0.0.1:65261 Accepted
+[Fri Mar 20 14:44:38 2026] 127.0.0.1:65261 Closing
+[Fri Mar 20 14:44:38 2026] 127.0.0.1:49290 Accepted
+[Fri Mar 20 14:44:39 2026] 127.0.0.1:49290 Closing
+[Fri Mar 20 14:44:39 2026] 127.0.0.1:53802 Accepted
+[Fri Mar 20 14:44:40 2026] 127.0.0.1:53802 Closing
+[Fri Mar 20 14:44:47 2026] 127.0.0.1:50204 Accepted
+[Fri Mar 20 14:44:47 2026] 127.0.0.1:50204 Closing
+[Fri Mar 20 14:44:49 2026] 127.0.0.1:64175 Accepted
+[Fri Mar 20 14:44:49 2026] 127.0.0.1:64175 Closing
+[Fri Mar 20 14:44:52 2026] 127.0.0.1:49170 Accepted
+[Fri Mar 20 14:44:52 2026] 127.0.0.1:49170 Closing
+[Fri Mar 20 14:44:56 2026] 127.0.0.1:63788 Accepted
+[Fri Mar 20 14:44:56 2026] 127.0.0.1:63788 Closing
+[Fri Mar 20 14:44:56 2026] 127.0.0.1:51428 Accepted
+[Fri Mar 20 14:44:56 2026] 127.0.0.1:51429 Accepted
+[Fri Mar 20 14:44:57 2026] 127.0.0.1:51428 Closing
+[Fri Mar 20 14:44:57 2026] 127.0.0.1:51430 Accepted
+[Fri Mar 20 14:44:57 2026] 127.0.0.1:51429 Closing
+[Fri Mar 20 14:44:57 2026] 127.0.0.1:59764 Accepted
+[Fri Mar 20 14:44:58 2026] 127.0.0.1:51430 Closing
+[Fri Mar 20 14:44:58 2026] 127.0.0.1:64301 Accepted
+[Fri Mar 20 14:44:58 2026] 127.0.0.1:59764 Closing
+[Fri Mar 20 14:44:58 2026] 127.0.0.1:53239 Accepted
+[Fri Mar 20 14:44:58 2026] 127.0.0.1:64301 Closing
+[Fri Mar 20 14:44:58 2026] 127.0.0.1:63120 Accepted
+[Fri Mar 20 14:44:59 2026] 127.0.0.1:53239 Closing
+[Fri Mar 20 14:44:59 2026] 127.0.0.1:63120 Closing
+[Fri Mar 20 14:45:12 2026] 127.0.0.1:58532 Accepted
+[Fri Mar 20 14:45:12 2026] 127.0.0.1:58532 Closing
+[Fri Mar 20 14:45:12 2026] 127.0.0.1:49675 Accepted
+[Fri Mar 20 14:45:13 2026] 127.0.0.1:49675 Closing
+[Fri Mar 20 14:45:16 2026] 127.0.0.1:54028 Accepted
+[Fri Mar 20 14:45:16 2026] 127.0.0.1:54029 Accepted
+[Fri Mar 20 14:45:16 2026] 127.0.0.1:54030 Accepted
+[Fri Mar 20 14:45:16 2026] 127.0.0.1:54031 Accepted
+[Fri Mar 20 14:45:17 2026] 127.0.0.1:54028 Closing
+[Fri Mar 20 14:45:17 2026] 127.0.0.1:54029 Closing
+[Fri Mar 20 14:45:18 2026] 127.0.0.1:54030 Closing
+[Fri Mar 20 14:45:18 2026] 127.0.0.1:54031 Closing
+[Fri Mar 20 14:45:18 2026] 127.0.0.1:54033 Accepted
+[Fri Mar 20 14:45:18 2026] 127.0.0.1:54273 Accepted
+[Fri Mar 20 14:45:18 2026] 127.0.0.1:54033 Closing
+[Fri Mar 20 14:45:18 2026] 127.0.0.1:62018 Accepted
+[Fri Mar 20 14:45:19 2026] 127.0.0.1:54273 Closing
+[Fri Mar 20 14:45:19 2026] 127.0.0.1:51897 Accepted
+[Fri Mar 20 14:45:19 2026] 127.0.0.1:62018 Closing
+[Fri Mar 20 14:45:19 2026] 127.0.0.1:51897 Closing
+[Fri Mar 20 14:45:19 2026] 127.0.0.1:49680 Accepted
+[Fri Mar 20 14:45:20 2026] 127.0.0.1:49680 Closing
+[Fri Mar 20 14:45:24 2026] 127.0.0.1:54065 Accepted
+[Fri Mar 20 14:45:25 2026] 127.0.0.1:54065 Closing
+[Fri Mar 20 14:45:25 2026] 127.0.0.1:52899 Accepted
+[Fri Mar 20 14:45:25 2026] 127.0.0.1:52899 Closing
+[Fri Mar 20 14:45:25 2026] 127.0.0.1:54846 Accepted
+[Fri Mar 20 14:45:26 2026] 127.0.0.1:54846 Closing
+[Fri Mar 20 14:45:27 2026] 127.0.0.1:65242 Accepted
+[Fri Mar 20 14:45:27 2026] 127.0.0.1:65243 Accepted
+[Fri Mar 20 14:45:27 2026] 127.0.0.1:65244 Accepted
+[Fri Mar 20 14:45:27 2026] 127.0.0.1:65242 Closing
+[Fri Mar 20 14:45:27 2026] 127.0.0.1:65243 Closing
+[Fri Mar 20 14:45:28 2026] 127.0.0.1:65244 Closing
+[Fri Mar 20 14:45:28 2026] 127.0.0.1:53824 Accepted
+[Fri Mar 20 14:45:28 2026] 127.0.0.1:53824 Closing
+[Fri Mar 20 14:45:28 2026] 127.0.0.1:54389 Accepted
+[Fri Mar 20 14:45:28 2026] 127.0.0.1:54389 Closing
+[Fri Mar 20 14:45:30 2026] 127.0.0.1:52499 Accepted
+[Fri Mar 20 14:45:30 2026] 127.0.0.1:52500 Accepted
+[Fri Mar 20 14:45:30 2026] 127.0.0.1:52499 Closing
+[Fri Mar 20 14:45:31 2026] 127.0.0.1:52500 Closing
+[Fri Mar 20 14:45:31 2026] 127.0.0.1:58056 Accepted
+[Fri Mar 20 14:45:31 2026] 127.0.0.1:58056 Closing
+[Fri Mar 20 14:45:33 2026] 127.0.0.1:54980 Accepted
+[Fri Mar 20 14:45:33 2026] 127.0.0.1:54980 Closing
+[Fri Mar 20 14:45:38 2026] 127.0.0.1:64250 Accepted
+[Fri Mar 20 14:45:38 2026] 127.0.0.1:64250 Closing
+[Fri Mar 20 14:45:39 2026] 127.0.0.1:54470 Accepted
+[Fri Mar 20 14:45:39 2026] 127.0.0.1:54470 Closing
+[Fri Mar 20 14:45:39 2026] 127.0.0.1:60739 Accepted
+[Fri Mar 20 14:45:40 2026] 127.0.0.1:60739 Closing
+[Fri Mar 20 14:45:44 2026] 127.0.0.1:51923 Accepted
+[Fri Mar 20 14:45:44 2026] 127.0.0.1:51924 Accepted
+[Fri Mar 20 14:45:44 2026] 127.0.0.1:51925 Accepted
+[Fri Mar 20 14:45:44 2026] 127.0.0.1:51923 Closing
+[Fri Mar 20 14:45:47 2026] 127.0.0.1:51924 Closing
+[Fri Mar 20 14:45:47 2026] 127.0.0.1:51925 Closing
+[Fri Mar 20 14:45:47 2026] 127.0.0.1:62509 Accepted
+[Fri Mar 20 14:45:47 2026] 127.0.0.1:62509 Closing
+[Fri Mar 20 14:45:47 2026] 127.0.0.1:53227 Accepted
+[Fri Mar 20 14:45:48 2026] 127.0.0.1:53227 Closing
+[Fri Mar 20 14:46:19 2026] 127.0.0.1:54839 Accepted
+[Fri Mar 20 14:46:21 2026] 127.0.0.1:54839 Closing
+[Fri Mar 20 14:46:21 2026] 127.0.0.1:64922 Accepted
+[Fri Mar 20 14:46:21 2026] 127.0.0.1:64922 [200]: GET /favicon.ico
+[Fri Mar 20 14:46:21 2026] 127.0.0.1:64922 Closing
+[Fri Mar 20 14:46:31 2026] 127.0.0.1:51654 Accepted
+[Fri Mar 20 14:46:32 2026] 127.0.0.1:51654 Closing
+[Fri Mar 20 14:49:43 2026] 127.0.0.1:55547 Accepted
+[Fri Mar 20 14:49:45 2026] 127.0.0.1:55547 Closing
+[Fri Mar 20 14:49:45 2026] 127.0.0.1:60301 Accepted
+[Fri Mar 20 14:49:45 2026] 127.0.0.1:60301 Closing
+[Fri Mar 20 14:49:45 2026] 127.0.0.1:49674 Accepted
+[Fri Mar 20 14:49:45 2026] 127.0.0.1:49675 Accepted
+[Fri Mar 20 14:49:46 2026] 127.0.0.1:49674 Closing
+[Fri Mar 20 14:49:46 2026] 127.0.0.1:49676 Accepted
+[Fri Mar 20 14:49:46 2026] 127.0.0.1:49675 Closing
+[Fri Mar 20 14:49:46 2026] 127.0.0.1:56042 Accepted
+[Fri Mar 20 14:49:47 2026] 127.0.0.1:49676 Closing
+[Fri Mar 20 14:49:47 2026] 127.0.0.1:59694 Accepted
+[Fri Mar 20 14:49:47 2026] 127.0.0.1:56042 Closing
+[Fri Mar 20 14:49:47 2026] 127.0.0.1:51622 Accepted
+[Fri Mar 20 14:49:47 2026] 127.0.0.1:59694 Closing
+[Fri Mar 20 14:49:47 2026] 127.0.0.1:60412 Accepted
+[Fri Mar 20 14:49:48 2026] 127.0.0.1:51622 Closing
+[Fri Mar 20 14:49:48 2026] 127.0.0.1:60412 Closing
+[Fri Mar 20 14:49:49 2026] 127.0.0.1:60694 Accepted
+[Fri Mar 20 14:49:49 2026] 127.0.0.1:60694 Closing
+[Fri Mar 20 14:49:49 2026] 127.0.0.1:58203 Accepted
+[Fri Mar 20 14:49:49 2026] 127.0.0.1:58203 Closing
+[Fri Mar 20 14:49:50 2026] 127.0.0.1:51555 Accepted
+[Fri Mar 20 14:49:50 2026] 127.0.0.1:51555 Closing
+[Fri Mar 20 14:50:06 2026] 127.0.0.1:52869 Accepted
+[Fri Mar 20 14:50:08 2026] 127.0.0.1:52869 Closing
+[Fri Mar 20 14:50:38 2026] 127.0.0.1:58213 Accepted
+[Fri Mar 20 14:50:39 2026] 127.0.0.1:58213 Closing
+[Fri Mar 20 14:50:44 2026] 127.0.0.1:53633 Accepted
+[Fri Mar 20 14:50:44 2026] 127.0.0.1:53633 Closing
+[Fri Mar 20 14:50:45 2026] 127.0.0.1:62422 Accepted
+[Fri Mar 20 14:50:45 2026] 127.0.0.1:62422 Closing
+[Fri Mar 20 14:50:45 2026] 127.0.0.1:50671 Accepted
+[Fri Mar 20 14:50:46 2026] 127.0.0.1:50671 Closing
+[Fri Mar 20 14:50:46 2026] 127.0.0.1:64117 Accepted
+[Fri Mar 20 14:50:46 2026] 127.0.0.1:64117 Closing
+[Fri Mar 20 14:50:51 2026] 127.0.0.1:55116 Accepted
+[Fri Mar 20 14:50:51 2026] 127.0.0.1:55116 Closing
+[Fri Mar 20 14:51:01 2026] 127.0.0.1:56358 Accepted
+[Fri Mar 20 14:51:01 2026] 127.0.0.1:56358 Closing
+[Fri Mar 20 14:51:02 2026] 127.0.0.1:60913 Accepted
+[Fri Mar 20 14:51:02 2026] 127.0.0.1:60913 Closing
+[Fri Mar 20 14:51:04 2026] 127.0.0.1:49826 Accepted
+[Fri Mar 20 14:51:04 2026] 127.0.0.1:49826 Closing
+[Fri Mar 20 14:51:08 2026] 127.0.0.1:64587 Accepted
+[Fri Mar 20 14:51:09 2026] 127.0.0.1:64587 Closing
+[Fri Mar 20 14:51:17 2026] 127.0.0.1:50923 Accepted
+[Fri Mar 20 14:51:18 2026] 127.0.0.1:50923 Closing
+[Fri Mar 20 14:51:31 2026] 127.0.0.1:64971 Accepted
+[Fri Mar 20 14:51:31 2026] 127.0.0.1:64971 Closing
+[Fri Mar 20 14:51:31 2026] 127.0.0.1:61426 Accepted
+[Fri Mar 20 14:51:31 2026] 127.0.0.1:61426 Closing
+[Fri Mar 20 14:51:35 2026] 127.0.0.1:61400 Accepted
+[Fri Mar 20 14:51:36 2026] 127.0.0.1:61400 Closing
+[Fri Mar 20 14:51:36 2026] 127.0.0.1:59596 Accepted
+[Fri Mar 20 14:51:36 2026] 127.0.0.1:59596 Closing
+[Fri Mar 20 14:52:54 2026] 127.0.0.1:63753 Accepted
+[Fri Mar 20 14:52:55 2026] 127.0.0.1:63753 Closing
+[Fri Mar 20 14:52:55 2026] 127.0.0.1:55335 Accepted
+[Fri Mar 20 14:52:56 2026] 127.0.0.1:55335 Closing
+[Fri Mar 20 14:53:06 2026] 127.0.0.1:52269 Accepted
+[Fri Mar 20 14:53:07 2026] 127.0.0.1:52269 Closing
+[Fri Mar 20 14:53:07 2026] 127.0.0.1:56306 Accepted
+[Fri Mar 20 14:53:07 2026] 127.0.0.1:56306 Closing

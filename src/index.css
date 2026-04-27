@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+@theme {
+  --tracking-tight: -0.025em;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Manrope", sans-serif;
+
+  --color-primary: #004253;
+  --color-primary-container: #005b71;
+  --color-primary-light: #007a99;
+  --color-on-primary: #ffffff;
+
+  --color-tertiary: #682900;
+  --color-tertiary-fixed: #ffdbcb;
+  --color-on-tertiary-fixed-variant: #793100;
+  --color-on-tertiary: #ffffff;
+
+  --color-surface: #f8f9fa;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f4f5;
+  --color-surface-container-high: #e7e8e9;
+  --color-surface-container-highest: #e1e3e4;
+
+  --color-on-surface: #191c1d;
+  --color-on-surface-variant: #40484c;
+  --color-outline: #70787d;
+  --color-outline-variant: #bfc8cc;
+
+  --color-accent-gold: #c9a84c;
+  --color-accent-gold-light: #f5ecd7;
+
+  --shadow-editorial: 0px 12px 32px rgba(25, 28, 29, 0.06);
+  --shadow-elevated: 0 8px 30px rgba(0, 66, 83, 0.08), 0 2px 8px rgba(0, 66, 83, 0.04);
+  --shadow-glow: 0 0 40px rgba(0, 66, 83, 0.12);
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 6px 16px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.06), 0 12px 28px rgba(0,0,0,0.08);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Base styles should use layer base */
+@layer base {
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
+    letter-spacing: var(--tracking-tight);
+  }
+}
+
+@layer components {
+  /* ===== Premium input styles ===== */
+  .input-premium {
+    width: 100%;
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid rgba(191, 200, 204, 0.3);
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+  .input-premium::placeholder {
+    color: rgba(64, 72, 76, 0.4);
+  }
+  .input-premium:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(0, 66, 83, 0.1);
+  }
+
+  /* ===== Premium button styles ===== */
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    padding: 1rem 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background-color: var(--color-primary-container);
+    box-shadow: var(--shadow-elevated);
+  }
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--color-outline-variant);
+    padding: 1rem 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: transparent;
+    cursor: pointer;
+  }
+  .btn-outline:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-outline:active {
+    transform: scale(0.98);
+  }
+
+  /* ===== Card hover effect ===== */
+  .card-hover {
+    transition: all 0.5s ease;
+  }
+  .card-hover:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-4px);
+  }
+
+  /* ===== Glass effect ===== */
+  .glass {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  /* ===== Gradient text ===== */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ===== Section label ===== */
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  /* ===== Image zoom tracking ===== */
+  .img-zoom {
+    overflow: hidden;
+  }
+  .img-zoom img {
+    transition: transform 0.7s ease-out;
+  }
+  .img-zoom:hover img {
+    transform: scale(1.1);
+  }
+
+  /* ===== Animated underline on links ===== */
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+  }
+  .link-underline:hover::after {
+    width: 100%;
+  }
+}
+
+@layer utilities {
+  /* ===== Shimmer loading ===== */
+  .shimmer {
+    background: linear-gradient(90deg, var(--color-surface-container-low) 25%, var(--color-surface-container-high) 50%, var(--color-surface-container-low) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* ===== Fade up animation ===== */
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Scrollbar and rest outside layers */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-outline);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: rgba(0, 66, 83, 0.15);
+  color: var(--color-primary);
+}

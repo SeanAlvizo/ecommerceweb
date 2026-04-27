@@ -1,0 +1,31 @@
+Current DB: primewear
+
+=== furniture_db tables ===
+(empty - no tables)
+
+=== primewear tables ===
+  - carts
+  - cart_items
+  - categories
+  - failed_jobs
+  - migrations
+  - orders
+  - order_items
+  - password_resets
+  - personal_access_tokens
+  - products
+  - users
+
+=== primewears2.0 tables ===
+  - cart_items
+  - categories
+  - failed_jobs
+  - migrations
+  - notifications
+  - orders
+  - order_items
+  - password_resets
+  - payment_methods
+  - personal_access_tokens
+  - products
+  - users

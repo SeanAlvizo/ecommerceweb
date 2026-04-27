@@ -1,0 +1,55 @@
+﻿php : PHP Warning:  Module 
+'fileinfo' already loaded in 
+Unknown on line 0
+At line:1 char:1
++ php artisan migrate --seed 
+2>&1 | Out-File -FilePath 
+migrate_error.tx ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~
+    + CategoryInfo           
+   : NotSpecified: (PHP War  
+  ning:  M...known on line   
+  0:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+PHP Warning:  Module 
+'mbstring' already loaded in 
+Unknown on line 0
+PHP Warning:  Module 
+'openssl' already loaded in 
+Unknown on line 0
+Migrating: 2024_01_01_000001_create_categories_table
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'categories' already exists (SQL: create table `categories` (`id` bigint unsigned not null auto_increment primary key, `slug` varchar(255) not null, `name` varchar(255) not null, `description` text null, `image` varchar(255) null, `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci')
+
+  at C:\Users\Public\furniture\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php:712
+    708Γûò         // If an exception occurs when attempting to run a query, we'll format the error
+    709Γûò         // message to include the bindings with SQL, which will make this exception a
+    710Γûò         // lot more helpful to the developer instead of just the database's errors.
+    711Γûò         catch (Exception $e) {
+  Γ₧£ 712Γûò             throw new QueryException(
+    713Γûò                 $query, $this->prepareBindings($bindings), $e
+    714Γûò             );
+    715Γûò         }
+    716Γûò     }
+
+  1   C:\Users\Public\furniture\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php:501
+      PDOException::("SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'categories' already exists")
+
+  2   C:\Users\Public\furniture\backend\vendor\laravel\framework\src\Illuminate\Database\Connection.php:501
+      PDOStatement::execute()
+
+   Whoops\Exception\ErrorException 
+
+  Module 'openssl' already loaded
+
+  1   C:\Users\Public\furniture\backend\vendor\filp\whoops\src\Whoops\Run.php:524
+      Whoops\Run::handleError()
+
+  2   [internal]:0
+      Whoops\Run::handleShutdown()
