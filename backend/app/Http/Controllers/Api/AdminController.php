@@ -133,7 +133,7 @@ class AdminController extends Controller
     public function updateOrderStatus(Request $request, $orderId)
     {
         $request->validate([
-            'status' => 'required|in:pending,processing,shipped,delivered,cancelled',
+            'status' => 'required|in:pending,processing,shipped,delivered,completed,cancelled',
         ]);
 
         $order = Order::findOrFail($orderId);

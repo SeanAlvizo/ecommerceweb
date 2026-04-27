@@ -12,7 +12,7 @@ class Order extends Model
     protected $fillable = [
         'order_number', 'customer_name', 'customer_email',
         'customer_phone', 'shipping_address', 'city',
-        'total_amount', 'status'
+        'total_amount', 'status', 'payment_method'
     ];
 
     protected $casts = [

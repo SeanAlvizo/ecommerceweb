@@ -283,6 +283,20 @@ export async function fetchMyOrders(): Promise<MyOrder[]> {
   return response.data;
 }
 
+export async function receiveOrder(orderNumber: string) {
+  const token = localStorage.getItem('algura_token');
+  const response = await apiRequest<{
+    success: boolean;
+    message: string;
+  }>(`/my-orders/${orderNumber}/receive`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  return response;
+}
+
 // ============ Health Check ============
 
 export async function checkApiHealth() {
@@ -295,4 +309,31 @@ export async function checkApiHealth() {
   } catch {
     return false;
   }
+}
+
+// ============ Wishlist ============
+
+export async function fetchWishlist() {
+  const token = localStorage.getItem('algura_token');
+  const response = await apiRequest<{
+    success: boolean;
+    data: any[];
+  }>('/wishlist', {
+    headers: { 'Authorization': `Bearer ${token}` },
+  });
+  return response.data;
+}
+
+export async function toggleWishlist(productId: string) {
+  const token = localStorage.getItem('algura_token');
+  const response = await apiRequest<{
+    success: boolean;
+    message: string;
+    status: 'added' | 'removed';
+  }>('/wishlist/toggle', {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${token}` },
+    body: JSON.stringify({ product_id: productId }),
+  });
+  return response;
 }

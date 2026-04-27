@@ -69,6 +69,7 @@ const statusColors: Record<string, string> = {
   processing: 'bg-blue-100 text-blue-700',
   shipped: 'bg-indigo-100 text-indigo-700',
   delivered: 'bg-green-100 text-green-700',
+  completed: 'bg-emerald-100 text-emerald-700',
   cancelled: 'bg-red-100 text-red-700',
 };
 
@@ -77,11 +78,12 @@ const statusIcons: Record<string, typeof Clock> = {
   processing: RefreshCw,
   shipped: Truck,
   delivered: CheckCircle,
+  completed: CheckCircle,
   cancelled: XCircle,
 };
 
 export const AdminDashboard = () => {
-  const { user, token, logout, isAdmin } = useAuth();
+  const { user, token, logout, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<ActiveTab>('dashboard');
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -117,12 +119,14 @@ export const AdminDashboard = () => {
   };
 
   useEffect(() => {
+    if (authLoading) return; // Wait for auth to initialize
+    
     if (!isAdmin) {
       navigate('/login');
       return;
     }
     loadDashboard();
-  }, [isAdmin]);
+  }, [isAdmin, authLoading]);
 
   useEffect(() => {
     if (activeTab === 'orders') loadOrders();
@@ -221,9 +225,13 @@ export const AdminDashboard = () => {
         setEditingProduct(null);
         resetProductForm();
         loadProducts();
+      } else {
+        const data = await res.json();
+        alert(`Validation failed: ${data.message || JSON.stringify(data.errors)}`);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to save product:', err);
+      alert(`Failed to save product: ${err.message}`);
     }
   };
 
@@ -591,7 +599,7 @@ export const AdminDashboard = () => {
                                   Update <ChevronDown size={12} />
                                 </button>
                                 <div className="absolute right-0 top-full mt-1 bg-[#1e2030] border border-white/10 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-20 min-w-[140px]">
-                                  {['pending', 'processing', 'shipped', 'delivered', 'cancelled'].map(s => (
+                                  {['pending', 'processing', 'shipped', 'delivered', 'completed', 'cancelled'].map(s => (
                                     <button
                                       key={s}
                                       onClick={() => updateOrderStatus(order.id, s)}

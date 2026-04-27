@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Filter, ChevronDown, ArrowRight } from 'lucide-react';
+import { Filter, ChevronDown, ArrowRight, Heart } from 'lucide-react';
 import { PRODUCTS, CATEGORIES } from '../constants';
-import { fetchProducts, fetchCategories } from '../api';
+import { fetchProducts, fetchCategories, toggleWishlist, fetchWishlist } from '../api';
 import type { Product, Category } from '../types';
 
 export const Collections = () => {
@@ -11,6 +11,7 @@ export const Collections = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [allCategories, setAllCategories] = useState<Category[]>(CATEGORIES);
   const [loading, setLoading] = useState(true);
+  const [wishlistIds, setWishlistIds] = useState<string[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -22,6 +23,12 @@ export const Collections = () => {
         ]);
         setProducts(apiProducts as Product[]);
         if (apiCategories.length > 0) setAllCategories(apiCategories as Category[]);
+        
+        // Fetch wishlist if logged in
+        if (localStorage.getItem('algura_token')) {
+          const wishData = await fetchWishlist();
+          setWishlistIds(wishData.map((item: any) => item.product_id));
+        }
       } catch (err) {
         console.log('Using fallback data (API unavailable)');
         const fallbackProducts = categoryId 
@@ -36,6 +43,25 @@ export const Collections = () => {
   }, [categoryId]);
 
   const category = categoryId ? allCategories.find(c => c.id === categoryId) : null;
+
+  const handleToggleWishlist = async (e: React.MouseEvent, productId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!localStorage.getItem('algura_token')) {
+      alert('Please log in to use your wishlist!');
+      return;
+    }
+    try {
+      const res = await toggleWishlist(productId);
+      if (res.status === 'added') {
+        setWishlistIds([...wishlistIds, productId]);
+      } else {
+        setWishlistIds(wishlistIds.filter(id => id !== productId));
+      }
+    } catch (err) {
+      console.error('Wishlist error:', err);
+    }
+  };
 
   return (
     <div className="pt-32 pb-20 min-h-screen bg-surface">
@@ -133,6 +159,19 @@ export const Collections = () => {
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    {/* Wishlist Button */}
+                    <button 
+                      onClick={(e) => handleToggleWishlist(e, product.id)}
+                      className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 z-10 ${
+                        wishlistIds.includes(product.id)
+                          ? 'bg-red-500 text-white shadow-lg pointer-events-auto opacity-100'
+                          : 'bg-white/80 backdrop-blur-md text-on-surface-variant hover:text-red-500 opacity-0 group-hover:opacity-100'
+                      }`}
+                    >
+                      <Heart size={18} fill={wishlistIds.includes(product.id) ? 'currentColor' : 'none'} />
+                    </button>
+
                     <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-500">
                       <span className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm text-primary text-xs font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg shadow-lg">
                         View Details <ArrowRight size={12} />

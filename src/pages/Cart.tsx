@@ -4,8 +4,10 @@ import { motion } from 'motion/react';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight, Package, Lock, Truck } from 'lucide-react';
 import { fetchCart, updateCartItem, removeFromCart, placeOrder } from '../api';
 import type { CartData } from '../api';
+import { useAuth } from '../context/AuthContext';
 
 export const Cart = () => {
+  const { user, isAuthenticated } = useAuth();
   const [cart, setCart] = useState<CartData | null>(null);
   const [loading, setLoading] = useState(true);
   const [showCheckout, setShowCheckout] = useState(false);
@@ -20,11 +22,22 @@ export const Cart = () => {
     customer_phone: '',
     shipping_address: '',
     city: '',
+    payment_method: 'cod',
   });
 
   useEffect(() => {
     loadCart();
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      setFormData(prev => ({
+        ...prev,
+        customer_name: user.name || '',
+        customer_email: user.email || '',
+      }));
+    }
+  }, [isAuthenticated, user]);
 
   const loadCart = async () => {
     try {
@@ -106,12 +119,21 @@ export const Cart = () => {
             <p className="text-on-surface-variant mb-10 leading-relaxed">
               Thank you for your purchase. We'll send you a confirmation email shortly.
             </p>
-            <Link 
-              to="/collections"
-              className="btn-primary inline-flex"
-            >
-              Continue Shopping <ArrowRight size={18} />
-            </Link>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link 
+                to="/order-tracking"
+                state={{ orderNumber }}
+                className="btn-primary inline-flex"
+              >
+                Track Your Order <Package size={18} />
+              </Link>
+              <Link 
+                to="/collections"
+                className="btn-outline inline-flex"
+              >
+                Continue Shopping <ArrowRight size={18} />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -299,6 +321,75 @@ export const Cart = () => {
                       onChange={e => setFormData({...formData, city: e.target.value})}
                       className="input-premium"
                     />
+                    
+                    <div className="mt-6 pt-4 border-t border-outline-variant/20">
+                      <h4 className="font-bold text-sm uppercase tracking-widest mb-4">Payment Method</h4>
+                      <div className="grid grid-cols-2 gap-4">
+                        <label className={`border rounded-xl p-4 cursor-pointer transition-all ${
+                          formData.payment_method === 'cod' 
+                            ? 'border-primary bg-primary/5 text-primary' 
+                            : 'border-outline-variant/30 text-on-surface-variant hover:border-outline-variant'
+                        }`}>
+                          <div className="flex items-center gap-3">
+                            <input 
+                              type="radio" 
+                              name="payment_method" 
+                              value="cod" 
+                              checked={formData.payment_method === 'cod'}
+                              onChange={() => setFormData({...formData, payment_method: 'cod'})}
+                              className="hidden"
+                            />
+                            <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                              formData.payment_method === 'cod' ? 'border-primary' : 'border-outline-variant'
+                            }`}>
+                              {formData.payment_method === 'cod' && <div className="w-2 h-2 bg-primary rounded-full" />}
+                            </div>
+                            <span className="font-bold text-sm">Cash on Delivery</span>
+                          </div>
+                        </label>
+                        
+                        <label className={`border rounded-xl p-4 cursor-pointer transition-all ${
+                          formData.payment_method === 'gcash' 
+                            ? 'border-[#0052fe] bg-[#0052fe]/5 text-[#0052fe]' 
+                            : 'border-outline-variant/30 text-on-surface-variant hover:border-outline-variant'
+                        }`}>
+                          <div className="flex items-center gap-3">
+                            <input 
+                              type="radio" 
+                              name="payment_method" 
+                              value="gcash" 
+                              checked={formData.payment_method === 'gcash'}
+                              onChange={() => setFormData({...formData, payment_method: 'gcash'})}
+                              className="hidden"
+                            />
+                            <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                              formData.payment_method === 'gcash' ? 'border-[#0052fe]' : 'border-outline-variant'
+                            }`}>
+                              {formData.payment_method === 'gcash' && <div className="w-2 h-2 bg-[#0052fe] rounded-full" />}
+                            </div>
+                            <span className="font-bold text-sm">GCash</span>
+                          </div>
+                        </label>
+                      </div>
+
+                      {formData.payment_method === 'gcash' && (
+                        <motion.div 
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          className="mt-4 p-6 bg-white border border-[#0052fe]/20 rounded-xl text-center shadow-sm"
+                        >
+                          <p className="text-xs text-gray-500 font-bold uppercase tracking-widest mb-3">Scan to Pay with GCash</p>
+                          <img 
+                            src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" 
+                            alt="GCash QR Code" 
+                            className="w-40 h-40 mx-auto mb-3"
+                          />
+                          <p className="text-sm font-medium text-gray-700">Amount: <span className="text-[#0052fe] font-bold">${cart.total.toFixed(2)}</span></p>
+                          <p className="text-[10px] text-gray-400 mt-2">Please take a screenshot of your successful transfer before proceeding.</p>
+                        </motion.div>
+                      )}
+                    </div>
+
                     <button 
                       type="submit"
                       disabled={submitting}

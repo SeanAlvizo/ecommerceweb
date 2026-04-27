@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X, Search, User, LogOut, LayoutDashboard, ChevronDown } from 'lucide-react';
+import { ShoppingBag, Menu, X, Search, User, LogOut, LayoutDashboard, ChevronDown, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { fetchCart } from '../api';
 import { SearchOverlay } from './SearchOverlay';
@@ -110,6 +110,9 @@ export const Header = () => {
           >
             <Search size={20} />
           </button>
+          <Link to="/wishlist" className="p-2.5 text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-lg group">
+            <Heart size={20} />
+          </Link>
           <Link to="/cart" className="p-2.5 text-on-surface-variant hover:text-primary hover:bg-primary/5 transition-all duration-300 rounded-lg relative group">
             <ShoppingBag size={20} />
             {cartCount > 0 && (
@@ -161,6 +164,14 @@ export const Header = () => {
                         Admin Dashboard
                       </Link>
                     )}
+                    <Link
+                      to="/wishlist"
+                      onClick={() => setShowUserMenu(false)}
+                      className="flex items-center gap-3 px-5 py-3.5 text-sm hover:bg-primary/5 transition-all duration-300"
+                    >
+                      <Heart size={16} />
+                      My Wishlist
+                    </Link>
                     <Link
                       to="/order-tracking"
                       onClick={() => setShowUserMenu(false)}

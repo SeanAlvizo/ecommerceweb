@@ -22,6 +22,7 @@ class OrderController extends Controller
             'customer_phone' => 'nullable|string|max:50',
             'shipping_address' => 'required|string',
             'city' => 'required|string|max:255',
+            'payment_method' => 'required|string|in:cod,gcash',
         ]);
 
         $sessionId = $request->header('X-Session-Id', $request->get('session_id'));
@@ -55,6 +56,7 @@ class OrderController extends Controller
                 'customer_phone' => $request->customer_phone,
                 'shipping_address' => $request->shipping_address,
                 'city' => $request->city,
+                'payment_method' => $request->payment_method,
                 'total_amount' => $totalAmount,
                 'status' => 'pending',
             ]);
@@ -115,6 +117,11 @@ class OrderController extends Controller
      */
     public function show($orderNumber)
     {
+        $orderNumber = strtoupper(trim($orderNumber));
+        if (!preg_match('/^ALG-/i', $orderNumber)) {
+            $orderNumber = 'ALG-' . $orderNumber;
+        }
+
         $order = Order::where('order_number', $orderNumber)
             ->with('items.product')
             ->first();
@@ -150,6 +157,31 @@ class OrderController extends Controller
         return response()->json([
             'success' => true,
             'data' => $orders,
+        ]);
+    }
+
+    /**
+     * Mark order as received by customer
+     */
+    public function markAsReceived($orderNumber, Request $request)
+    {
+        $user = $request->user();
+        $order = Order::where('order_number', $orderNumber)->where('customer_email', $user->email)->first();
+
+        if (!$order) {
+            return response()->json(['success' => false, 'message' => 'Order not found'], 404);
+        }
+
+        if ($order->status !== 'delivered') {
+            return response()->json(['success' => false, 'message' => 'Order cannot be received yet'], 400);
+        }
+
+        $order->status = 'completed';
+        $order->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Order marked as received',
         ]);
     }
 

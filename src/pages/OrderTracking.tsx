@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Search, Package, MapPin, Clock, ChevronRight, ChevronDown, ChevronUp,
   Truck, CheckCircle, Box, XCircle, ShoppingBag, Eye, Calendar, CreditCard
 } from 'lucide-react';
-import { fetchOrder, fetchMyOrders } from '../api';
+import { fetchOrder, fetchMyOrders, receiveOrder } from '../api';
 import type { MyOrder } from '../api';
 import { useAuth } from '../context/AuthContext';
 
@@ -28,7 +28,7 @@ interface OrderDetails {
   }>;
 }
 
-const statusSteps = ['pending', 'processing', 'shipped', 'delivered'];
+const statusSteps = ['pending', 'processing', 'shipped', 'delivered', 'completed'];
 
 const statusConfig: Record<string, {
   icon: typeof Package;
@@ -69,6 +69,14 @@ const statusConfig: Record<string, {
     bgColor: 'bg-green-50',
     borderColor: 'border-green-200',
     glowColor: 'shadow-green-100',
+  },
+  completed: {
+    icon: CheckCircle,
+    label: 'Completed',
+    color: 'text-emerald-700',
+    bgColor: 'bg-emerald-50',
+    borderColor: 'border-emerald-200',
+    glowColor: 'shadow-emerald-100',
   },
   cancelled: {
     icon: XCircle,
@@ -148,6 +156,25 @@ const ProgressTracker = ({ status }: { status: string }) => {
 
 const OrderCard = ({ order, defaultExpanded = false }: { order: OrderDetails | MyOrder; defaultExpanded?: boolean }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
+  const [receiving, setReceiving] = useState(false);
+
+  const handleReceiveOrder = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!confirm('Have you received your order? This will mark it as completed.')) return;
+    
+    setReceiving(true);
+    try {
+      const res = await receiveOrder(order.order_number);
+      if (res.success) {
+        alert('Order marked as received!');
+        window.location.reload(); // Quick way to refresh orders
+      }
+    } catch (err: any) {
+      alert(err.message || 'Failed to update order');
+    } finally {
+      setReceiving(false);
+    }
+  };
 
   return (
     <motion.div
@@ -178,7 +205,7 @@ const OrderCard = ({ order, defaultExpanded = false }: { order: OrderDetails | M
               </span>
               <span className="flex items-center gap-1">
                 <ShoppingBag size={12} />
-                {order.items.reduce((sum, item) => sum + item.quantity, 0)} items
+                {order.items.map(i => i.quantity).reduce((a, b) => a + b, 0)} items
               </span>
               <span className="flex items-center gap-1">
                 <CreditCard size={12} />
@@ -208,6 +235,15 @@ const OrderCard = ({ order, defaultExpanded = false }: { order: OrderDetails | M
               </div>
             )}
           </div>
+          {order.status === 'delivered' && (
+            <button
+              onClick={handleReceiveOrder}
+              disabled={receiving}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] sm:text-xs font-bold uppercase tracking-widest px-3 py-2 rounded-lg transition-all shadow-md disabled:opacity-50"
+            >
+              {receiving ? 'Updating...' : 'Order Received'}
+            </button>
+          )}
           {expanded ? <ChevronUp size={18} className="text-on-surface-variant" /> : <ChevronDown size={18} className="text-on-surface-variant" />}
         </div>
       </button>
@@ -287,7 +323,7 @@ const OrderCard = ({ order, defaultExpanded = false }: { order: OrderDetails | M
                   <h5 className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-2">Payment Summary</h5>
                   <div className="space-y-1.5 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-on-surface-variant text-xs">Items ({order.items.reduce((s, i) => s + i.quantity, 0)})</span>
+                      <span className="text-on-surface-variant text-xs">Items ({order.items.map(i => i.quantity).reduce((a, b) => a + b, 0)})</span>
                       <span className="text-xs font-medium">${Number(order.total_amount).toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
@@ -310,6 +346,7 @@ const OrderCard = ({ order, defaultExpanded = false }: { order: OrderDetails | M
 };
 
 export const OrderTracking = () => {
+  const location = useLocation();
   const { user, isAuthenticated, loading: authLoading } = useAuth();
   const [orderNumber, setOrderNumber] = useState('');
   const [searchedOrder, setSearchedOrder] = useState<OrderDetails | null>(null);
@@ -319,6 +356,29 @@ export const OrderTracking = () => {
   const [error, setError] = useState('');
   const [searched, setSearched] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+
+  // Auto-search if coming from success page
+  useEffect(() => {
+    const stateOrder = location.state?.orderNumber;
+    if (stateOrder) {
+      setOrderNumber(stateOrder);
+      triggerDirectSearch(stateOrder);
+    }
+  }, [location.state]);
+
+  const triggerDirectSearch = async (num: string) => {
+    setLoading(true);
+    setError('');
+    setSearched(true);
+    try {
+      const data = await fetchOrder(num) as OrderDetails;
+      setSearchedOrder(data);
+    } catch (err) {
+      setError('Order not found.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Auto-load orders for logged-in users
   useEffect(() => {
@@ -348,7 +408,11 @@ export const OrderTracking = () => {
     setSearched(true);
 
     try {
-      const data = await fetchOrder(orderNumber.trim()) as OrderDetails;
+      let queryNumber = orderNumber.trim();
+      if (!queryNumber.startsWith('ALG-') && !queryNumber.startsWith('alg-')) {
+        queryNumber = 'ALG-' + queryNumber;
+      }
+      const data = await fetchOrder(queryNumber) as OrderDetails;
       setSearchedOrder(data);
     } catch (err) {
       setSearchedOrder(null);

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Customer orders
     Route::get('/my-orders', [OrderController::class, 'myOrders']);
+    Route::put('/my-orders/{orderNumber}/receive', [OrderController::class, 'markAsReceived']);
+
+    // Wishlist
+    Route::get('/wishlist', [WishlistController::class, 'index']);
+    Route::post('/wishlist/toggle', [WishlistController::class, 'toggle']);
 
     // ============ Admin-Only Routes ============
     Route::middleware('admin')->prefix('admin')->group(function () {

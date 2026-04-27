@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->role === 'customer';
     }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }

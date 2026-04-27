@@ -93,7 +93,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try { data = text ? JSON.parse(text) : {}; } catch { data = {}; }
 
     if (!res.ok) {
-      throw new Error(data.message || data.errors?.email?.[0] || 'Login failed');
+      let errorMsg = data.errors?.email?.[0] || data.message || 'Login failed';
+      if (errorMsg === 'The given data was invalid.') {
+         errorMsg = 'Incorrect email or password. (Check for trailing spaces)';
+      }
+      throw new Error(errorMsg);
     }
 
     localStorage.setItem('algura_token', data.data?.token || '');

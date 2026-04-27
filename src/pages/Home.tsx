@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import React from 'react';
 import { PRODUCTS, CATEGORIES } from '../constants';
-import { fetchProducts, fetchCategories } from '../api';
+import { fetchProducts, fetchCategories, toggleWishlist, fetchWishlist } from '../api';
 import type { Product, Category } from '../types';
 
 export const Home = () => {
   const [products, setProducts] = useState<Product[]>(PRODUCTS);
   const [categories, setCategories] = useState<Category[]>(CATEGORIES);
   const [loading, setLoading] = useState(true);
+  const [wishlistIds, setWishlistIds] = useState<string[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -20,6 +22,12 @@ export const Home = () => {
         ]);
         if (apiProducts.length > 0) setProducts(apiProducts as Product[]);
         if (apiCategories.length > 0) setCategories(apiCategories as Category[]);
+        
+        // Fetch wishlist if logged in
+        if (localStorage.getItem('algura_token')) {
+          const wishData = await fetchWishlist();
+          setWishlistIds(wishData.map((item: any) => item.product_id));
+        }
       } catch (err) {
         console.log('Using fallback data (API unavailable)');
       } finally {
@@ -30,6 +38,25 @@ export const Home = () => {
   }, []);
 
   const featuredProducts = products.filter(p => p.featured);
+
+  const handleToggleWishlist = async (e: React.MouseEvent, productId: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!localStorage.getItem('algura_token')) {
+      alert('Please log in to use your wishlist!');
+      return;
+    }
+    try {
+      const res = await toggleWishlist(productId);
+      if (res.status === 'added') {
+        setWishlistIds([...wishlistIds, productId]);
+      } else {
+        setWishlistIds(wishlistIds.filter(id => id !== productId));
+      }
+    } catch (err) {
+      console.error('Wishlist error:', err);
+    }
+  };
 
   return (
     <div>
@@ -195,6 +222,18 @@ export const Home = () => {
                     <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm px-5 py-2.5 text-xs font-bold tracking-widest rounded-full shadow-lg">
                       ${product.price}
                     </div>
+
+                    {/* Wishlist Button */}
+                    <button 
+                      onClick={(e) => handleToggleWishlist(e, product.id)}
+                      className={`absolute top-6 left-6 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 z-10 ${
+                        wishlistIds.includes(product.id)
+                          ? 'bg-red-500 text-white shadow-lg opacity-100'
+                          : 'bg-white/80 backdrop-blur-md text-on-surface-variant hover:text-red-500 opacity-0 group-hover:opacity-100'
+                      }`}
+                    >
+                      <Heart size={20} fill={wishlistIds.includes(product.id) ? 'currentColor' : 'none'} />
+                    </button>
                   </div>
                   <div className="flex justify-between items-start">
                     <div>

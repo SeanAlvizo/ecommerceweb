@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingBag, ChevronRight, Plus, Minus, Shield, Truck, RotateCcw, Check, Heart } from 'lucide-react';
 import { PRODUCTS } from '../constants';
-import { fetchProduct, addToCart } from '../api';
+import { fetchProduct, addToCart, fetchWishlist, toggleWishlist } from '../api';
 import type { Product } from '../types';
 
 export const ProductDetail = () => {
@@ -14,6 +14,7 @@ export const ProductDetail = () => {
   const [addingToCart, setAddingToCart] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isInWishlist, setIsInWishlist] = useState(false);
 
   // Safely get images and specs with fallbacks to prevent crashes
   const images = product?.images && Array.isArray(product.images) ? product.images : [];
@@ -25,6 +26,14 @@ export const ProductDetail = () => {
       try {
         const apiProduct = await fetchProduct(productId!);
         setProduct(apiProduct as Product);
+        
+        // Check if in wishlist
+        const token = localStorage.getItem('algura_token');
+        if (token) {
+          const wishItems = await fetchWishlist();
+          const inWish = wishItems.some((item: any) => item.product_id === productId);
+          setIsInWishlist(inWish);
+        }
       } catch (err) {
         // Fallback to constants
         const fallbackProduct = PRODUCTS.find(p => p.id === productId);
@@ -48,6 +57,21 @@ export const ProductDetail = () => {
       alert('Failed to add to cart. Please try again.');
     } finally {
       setAddingToCart(false);
+    }
+  };
+
+  const handleToggleWishlist = async () => {
+    if (!product) return;
+    const token = localStorage.getItem('algura_token');
+    if (!token) {
+      alert('Please log in to use your wishlist!');
+      return;
+    }
+    try {
+      const res = await toggleWishlist(product.id);
+      setIsInWishlist(res.status === 'added');
+    } catch (err) {
+      console.error('Failed to toggle wishlist:', err);
     }
   };
 
@@ -216,8 +240,15 @@ export const ProductDetail = () => {
                         </>
                       )}
                     </button>
-                    <button className="p-3.5 border border-outline-variant/30 rounded-xl hover:border-red-300 hover:text-red-500 hover:bg-red-50 transition-all duration-300">
-                      <Heart size={20} />
+                    <button 
+                      onClick={handleToggleWishlist}
+                      className={`p-3.5 border rounded-xl transition-all duration-300 ${
+                        isInWishlist 
+                          ? 'bg-red-500 border-red-500 text-white shadow-lg' 
+                          : 'border-outline-variant/30 hover:border-red-300 hover:text-red-500 hover:bg-red-50'
+                      }`}
+                    >
+                      <Heart size={20} fill={isInWishlist ? 'currentColor' : 'none'} />
                     </button>
                   </div>
                 </div>

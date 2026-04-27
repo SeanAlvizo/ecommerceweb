@@ -1,4 +1,5 @@
 node_modules/
+vendor/
 build/
 dist/
 coverage/
@@ -6,3 +7,12 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Laravel specifics
+/backend/storage/*.key
+/backend/storage/framework/cache/data/*
+/backend/storage/framework/sessions/*
+/backend/storage/framework/views/*
+/backend/storage/logs/*
+/backend/public/storage
+/backend/public/hot

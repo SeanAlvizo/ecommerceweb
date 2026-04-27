@@ -17,6 +17,7 @@ import { OrderTracking } from './pages/OrderTracking';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { AdminDashboard } from './pages/AdminDashboard';
+import { Wishlist } from './pages/Wishlist';
 
 // Layout wrapper that hides header/footer on auth and admin pages
 const AppLayout = () => {
@@ -39,6 +40,7 @@ const AppLayout = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/order-tracking" element={<OrderTracking />} />
+          <Route path="/wishlist" element={<Wishlist />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />
