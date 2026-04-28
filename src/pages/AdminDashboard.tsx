@@ -139,9 +139,10 @@ export const AdminDashboard = () => {
   }, [activeTab]);
 
   const loadDashboard = async () => {
+    const API_BASE = import.meta.env.VITE_API_URL || '/api';
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/dashboard', { headers });
+      const res = await fetch(`${API_BASE}/admin/dashboard`, { headers });
       const text = await res.text();
       const data = text ? JSON.parse(text) : {};
       if (data.success) {
@@ -156,8 +157,9 @@ export const AdminDashboard = () => {
   };
 
   const loadOrders = async () => {
+    const API_BASE = import.meta.env.VITE_API_URL || '/api';
     try {
-      const url = orderFilter !== 'all' ? `/api/admin/orders?status=${orderFilter}` : '/api/admin/orders';
+      const url = orderFilter !== 'all' ? `${API_BASE}/admin/orders?status=${orderFilter}` : `${API_BASE}/admin/orders`;
       const res = await fetch(url, { headers });
       const text = await res.text();
       const data = text ? JSON.parse(text) : {};
@@ -168,8 +170,9 @@ export const AdminDashboard = () => {
   };
 
   const loadProducts = async () => {
+    const API_BASE = import.meta.env.VITE_API_URL || '/api';
     try {
-      const res = await fetch('/api/admin/products', { headers });
+      const res = await fetch(`${API_BASE}/admin/products`, { headers });
       const text = await res.text();
       const data = text ? JSON.parse(text) : {};
       if (data.success) setProducts(data.data);
@@ -179,8 +182,9 @@ export const AdminDashboard = () => {
   };
 
   const loadCustomers = async () => {
+    const API_BASE = import.meta.env.VITE_API_URL || '/api';
     try {
-      const res = await fetch('/api/admin/customers', { headers });
+      const res = await fetch(`${API_BASE}/admin/customers`, { headers });
       const text = await res.text();
       const data = text ? JSON.parse(text) : {};
       if (data.success) setCustomers(data.data);
@@ -190,8 +194,9 @@ export const AdminDashboard = () => {
   };
   
   const loadAdminCategories = async () => {
+    const API_BASE = import.meta.env.VITE_API_URL || '/api';
     try {
-      const res = await fetch('/api/admin/categories', { headers });
+      const res = await fetch(`${API_BASE}/admin/categories`, { headers });
       const text = await res.text();
       const data = text ? JSON.parse(text) : {};
       if (data.success) setAdminCategories(data.data);
@@ -202,9 +207,10 @@ export const AdminDashboard = () => {
 
   const saveProduct = async (e: React.FormEvent) => {
     e.preventDefault();
+    const API_BASE = import.meta.env.VITE_API_URL || '/api';
     try {
       const method = editingProduct ? 'PUT' : 'POST';
-      const url = editingProduct ? `/api/admin/products/${editingProduct.id}` : '/api/admin/products';
+      const url = editingProduct ? `${API_BASE}/admin/products/${editingProduct.id}` : `${API_BASE}/admin/products`;
       
       const payload = {
         ...productForm,
@@ -237,8 +243,9 @@ export const AdminDashboard = () => {
 
   const deleteProduct = async (id: number) => {
     if (!confirm('Are you sure you want to delete this product?')) return;
+    const API_BASE = import.meta.env.VITE_API_URL || '/api';
     try {
-      const res = await fetch(`/api/admin/products/${id}`, { method: 'DELETE', headers });
+      const res = await fetch(`${API_BASE}/admin/products/${id}`, { method: 'DELETE', headers });
       if (res.ok) loadProducts();
     } catch (err) {
       console.error('Failed to delete product:', err);
@@ -247,8 +254,9 @@ export const AdminDashboard = () => {
 
   const saveCategory = async (e: React.FormEvent) => {
     e.preventDefault();
+    const API_BASE = import.meta.env.VITE_API_URL || '/api';
     try {
-      const res = await fetch('/api/admin/categories', {
+      const res = await fetch(`${API_BASE}/admin/categories`, {
         method: 'POST',
         headers,
         body: JSON.stringify(categoryForm),
@@ -266,8 +274,9 @@ export const AdminDashboard = () => {
 
   const deleteCategory = async (id: number) => {
     if (!confirm('Are you sure you want to delete this category?')) return;
+    const API_BASE = import.meta.env.VITE_API_URL || '/api';
     try {
-      const res = await fetch(`/api/admin/categories/${id}`, { method: 'DELETE', headers });
+      const res = await fetch(`${API_BASE}/admin/categories/${id}`, { method: 'DELETE', headers });
       const data = await res.json();
       if (res.ok) {
         loadAdminCategories();
@@ -306,8 +315,9 @@ export const AdminDashboard = () => {
   };
 
   const updateOrderStatus = async (orderId: number, newStatus: string) => {
+    const API_BASE = import.meta.env.VITE_API_URL || '/api';
     try {
-      await fetch(`/api/admin/orders/${orderId}/status`, {
+      await fetch(`${API_BASE}/admin/orders/${orderId}/status`, {
         method: 'PUT',
         headers,
         body: JSON.stringify({ status: newStatus }),
