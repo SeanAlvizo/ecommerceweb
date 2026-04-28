@@ -5,7 +5,7 @@ nixPkgs = ["php81", "php81Packages.composer", "nodejs"]
 cmds = ["composer install --no-interaction --prefer-dist --optimize-autoloader"]
 
 [phases.build]
-cmds = ["php artisan key:generate", "php artisan storage:link", "php artisan migrate --force", "php artisan db:seed --class=FurnitureSeeder --force"]
+cmds = ["php artisan key:generate", "php artisan storage:link"]
 
 [start]
-cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "php artisan migrate --force && php artisan db:seed --class=FurnitureSeeder --force && php artisan serve --host=0.0.0.0 --port=$PORT"
