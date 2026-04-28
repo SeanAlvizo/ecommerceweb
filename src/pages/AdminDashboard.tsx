@@ -511,7 +511,10 @@ export const AdminDashboard = () => {
                                 <p className="text-gray-500 text-xs">{order.customer_email}</p>
                               </td>
                               <td className="px-6 py-4 text-white text-sm font-medium">
-                                ${order.total_amount.toFixed(2)}
+                                <div className="flex flex-col">
+                                  <span className="text-white text-sm font-medium">${order.total_amount.toFixed(2)}</span>
+                                  <span className="text-[10px] text-gray-500">{order.items_count} items</span>
+                                </div>
                               </td>
                               <td className="px-6 py-4">
                                 <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full ${statusColors[order.status] || 'bg-gray-100 text-gray-700'}`}>
@@ -585,7 +588,18 @@ export const AdminDashboard = () => {
                               <p className="text-white text-sm">{order.customer_name}</p>
                               <p className="text-gray-500 text-xs">{order.customer_email}</p>
                             </td>
-                            <td className="px-6 py-4 text-gray-300 text-sm">{order.items_count}</td>
+                            <td className="px-6 py-4 text-gray-400 text-sm">
+                              <div className="max-w-[200px]">
+                                {order.items?.map((item, idx) => (
+                                  <div key={idx} className="text-[11px] text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                                    {item.quantity}x {item.product_name}
+                                  </div>
+                                ))}
+                                {(!order.items || order.items.length === 0) && (
+                                  <span className="text-gray-600 italic">No item details</span>
+                                )}
+                              </div>
+                            </td>
                             <td className="px-6 py-4 text-white text-sm font-medium">${order.total_amount.toFixed(2)}</td>
                             <td className="px-6 py-4 text-gray-400 text-sm">{order.city}</td>
                             <td className="px-6 py-4">
